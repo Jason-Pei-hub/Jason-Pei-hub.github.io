@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+<link rel="icon" href="./favicon.ico">
+<head>
+    <meta charset="UTF-8">
+    <title>404 页面未找到</title>
+    <!-- <meta http-equiv="refresh" content="2;url=/"> 设置2秒后跳转到首页 -->
+    <style>
+        html,
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+       .parent {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+            /* 设置背景图片，使其占满页面 */
+            background: url('img/icon/head.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            color: #444;
+            font-size: 16px;
+        }
+
+        /* 定义子弹性盒，让它们平均分配剩余空间 */
+        /* 定义子弹性盒，让它们平均分配剩余空间 */
+       .child1 {
+           height: 60vh;
+            /*flex-grow: 1;*/
+            /*!* 设置背景颜色和透明度 *!*/
+            /*background: rgba(255, 255, 255, 0.3);*/
+            /*!* 应用磨砂玻璃效果 *!*/
+            /*backdrop-filter: blur(10px);*/
+            /*-webkit-backdrop-filter: blur(10px); !* Safari 兼容 *!*/
+            /*border-radius: 10px; !* 可选：添加圆角 *!*/
+            /*margin: 10px; !* 可选：添加外边距 *!*/
+        }
+       .child2 {
+            flex-grow: 1;
+            /* 设置背景颜色和透明度 */
+            background: rgba(201, 115, 106, 0.4);
+            /* 应用磨砂玻璃效果 */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* Safari 兼容 */
+            border-radius: 10px; /* 可选：添加圆角 */
+
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 父弹性容器 -->
+    <div class="parent">
+        <!-- 第一个子弹性盒 -->
+        <div class="child1">
+        </div>
+        <!-- 第二个子弹性盒 -->
+        <div class="child2">
+            <h1>404 页面未找到</h1>
+            <p>对不起，您请求的页面不存在或已被删除。</p>
+            <p>请检查您的URL是否正确</p>
+            <p>如果您认为这是一个错误，请联系网站管理员。</p>
+        </div>
+
+    </div>
+</body>
+</html>
