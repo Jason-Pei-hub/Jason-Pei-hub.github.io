@@ -1,10 +1,3 @@
-/*
-作者: imsyy
-主页：https://www.imsyy.top/
-GitHub：https://github.com/imsyy/home
-版权所有，请勿删除
-*/
-
 // 背景图片 Cookies
 function setBgImg(bg_img) {
   if (bg_img) {
@@ -19,19 +12,16 @@ function setBgImg(bg_img) {
 // 获取背景图片 Cookies
 function getBgImg() {
   let bg_img_local = Cookies.get("bg_img");
-  if (bg_img_local && bg_img_local !== "{}") {
+  if (bg_img_local && bg_img_local!== "{}") {
     return JSON.parse(bg_img_local);
   } else {
-    setBgImg(bg_img_preinstall);
-    return bg_img_preinstall;
+    setBgImg({ type: "1" });
+    return { type: "1" };
   }
 }
 
 let bg_img_preinstall = {
-  type: "1", // 1:默认背景 2:每日一图 3:随机风景 4:随机动漫
-  2: "https://api.dujin.org/bing/1920.php", // 每日一图
-  3: "https://api.btstu.cn/sjbz/api.php?lx=fengjing&format=images", // 随机风景
-  4: "https://www.dmoe.cc/random.php", // 随机动漫
+  type: "1", // 1:默认背景 2:上一张 3:下一张 4:随机壁纸
 };
 
 // 更改背景图片
@@ -39,21 +29,36 @@ function setBgImgInit() {
   let bg_img = getBgImg();
   $("input[name='wallpaper-type'][value=" + bg_img["type"] + "]").click();
 
+  let currentIndex = 1;
+  let totalWallpapers = 12;
+
   switch (bg_img["type"]) {
     case "1":
-      $("#bg").attr(
-        "src",
-        `./img/background${1 + ~~(Math.random() * 10)}.webp`
-      ); //随机默认壁纸
+      currentIndex = 1 + ~~(Math.random() * totalWallpapers);
+      $("body").css("background-image", `url('img/background/background (${currentIndex}).jpg')`);
       break;
     case "2":
-      $("#bg").attr("src", bg_img_preinstall[2]); //必应每日
+      // 获取当前显示的壁纸索引
+      let currentBackground = $("body").css("background-image");
+      let currentIndexMatch = currentBackground.match(/background \((\d+)\)/);
+      if (currentIndexMatch) {
+        currentIndex = parseInt(currentIndexMatch[1]);
+        currentIndex = currentIndex > 1? currentIndex - 1 : totalWallpapers;
+      }
+      $("body").css("background-image", `url('img/background/background (${currentIndex}).jpg')`);
       break;
     case "3":
-      $("#bg").attr("src", bg_img_preinstall[3]); //随机风景
+      currentBackground = $("body").css("background-image");
+      currentIndexMatch = currentBackground.match(/background \((\d+)\)/);
+      if (currentIndexMatch) {
+        currentIndex = parseInt(currentIndexMatch[1]);
+        currentIndex = currentIndex < totalWallpapers? currentIndex + 1 : 1;
+      }
+      $("body").css("background-image", `url('img/background/background (${currentIndex}).jpg')`);
       break;
     case "4":
-      $("#bg").attr("src", bg_img_preinstall[4]); //随机动漫
+      currentIndex = 1 + ~~(Math.random() * totalWallpapers);
+      $("body").css("background-image", `url('img/background/background (${currentIndex}).jpg')`);
       break;
   }
 }
